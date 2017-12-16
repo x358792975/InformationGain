@@ -93,26 +93,27 @@ public class main {
 
     ArrayList<LabelNode> Labels;
     int[] values;
-    // for(int i = 0; i < numAttrs; i++) {
-    //   if(i == indexOfPosteriors) {
-    //     System.out.println("Attribute Name: Match");
-    //     values = postProb.getLabelValues();
-    //     for(int h = 0; h < numOfPostLabels; h++) {
-    //       System.out.println(h + ": " + values[h] + "\t");
-    //     }
-    //     continue;
-    //   }
-    //   Labels = attrTable.get(i).getLabels();
-    //   System.out.println("Attribute Name: " + attrTable.get(i).getName());
-    //   for(int j = 0; j < Labels.size(); j++) {
-    //     values = Labels.get(j).getLabelValues();
-    //     System.out.println("Label: " + Labels.get(j).getName());
-    //     for(int h = 0; h < numOfPostLabels; h++) {
-    //       System.out.println(h + ": " + values[h] + "\t");
-    //     }
-    //     System.out.println();
-    //   }
-    // }
+    for(int i = 0; i < numAttrs; i++) {
+      if(i == indexOfPosteriors) {
+        System.out.println("Attribute Name: Match");
+        values = postProb.getLabelValues();
+        for(int h = 0; h < numOfPostLabels; h++) {
+          System.out.println(h + ": " + values[h] + "\t");
+        }
+        continue;
+      }
+      Labels = attrTable.get(i).getLabels();
+      System.out.println("Attribute Name: " + attrTable.get(i).getName());
+      for(int j = 0; j < Labels.size(); j++) {
+        values = Labels.get(j).getLabelValues();
+        System.out.println("Label: " + Labels.get(j).getName());
+        for(int h = 0; h < numOfPostLabels; h++) {
+          System.out.println(h + ": " + values[h] + "\t");
+        }
+        System.out.println();
+      }
+    }
+    System.out.println("\n\nComputing IG:\n\n");
     double entropy = 0, part_one, part_two, part_three, IC, IG;
     double total_sum = 0;
     values= postProb.getLabelValues();
