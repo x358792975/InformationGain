@@ -37,11 +37,12 @@ public class main {
 
     Attribute attrNode;
     //Initialize the attrTable
-    for(int i = 0; i < attrsList.length; i++) {
+    for(int i = 1; i < attrsList.length; i++) {
       attrNode = new Attribute(attrsList[i]);
       attrTable.add(attrNode);
     }
 
+    //Index of the posterior(column)
     int indexOfPosteriors = 0;
     int numOfPostLabels = 2;
     String rowData;
@@ -51,6 +52,7 @@ public class main {
     String posteriorLabel = "";
 
     LabelNode postProb = new LabelNode(attrsList[indexOfPosteriors], numOfPostLabels);
+
     while(sc.hasNext()) {
       //read row in data table
       rowData = sc.nextLine();
@@ -58,7 +60,7 @@ public class main {
       labels = rowData.split("\t");
       // Go through all attributes value present in this row data
       for(int i = 0; i < labels.length; i++) {
-        // System.out.println(i);
+        System.out.println(i);
         //The currrent attribute value is for the posterior
         if(i == indexOfPosteriors) {
           posteriorLabel = labels[i];
@@ -93,78 +95,26 @@ public class main {
 
     ArrayList<LabelNode> Labels;
     int[] values;
-    // for(int i = 0; i < numAttrs; i++) {
-    //   if(i == indexOfPosteriors) {
-    //     System.out.println("Attribute Name: Match");
-    //     values = postProb.getLabelValues();
-    //     for(int h = 0; h < numOfPostLabels; h++) {
-    //       System.out.println(h + ": " + values[h] + "\t");
-    //     }
-    //     continue;
-    //   }
-    //   Labels = attrTable.get(i).getLabels();
-    //   System.out.println("Attribute Name: " + attrTable.get(i).getName());
-    //   for(int j = 0; j < Labels.size(); j++) {
-    //     values = Labels.get(j).getLabelValues();
-    //     System.out.println("Label: " + Labels.get(j).getName());
-    //     for(int h = 0; h < numOfPostLabels; h++) {
-    //       System.out.println(h + ": " + values[h] + "\t");
-    //     }
-    //     System.out.println();
-    //   }
-    // }
-    double entropy = 0, part_one, part_two, part_three, IC, IG;
-    double total_sum = 0;
-    values= postProb.getLabelValues();
-    for(int i = 0; i < numOfPostLabels; i++) {
-      total_sum += values[i];
-    }
-    for(int i = 0; i < numOfPostLabels; i++) {
-      part_one = values[i]/total_sum;
-      entropy += (-1) * (part_one)*(Math.log(part_one)/Math.log(2));
-    }
 
-    System.out.println("Entropy:" +  entropy);
-
-    double remainder;
-    double sum;
-    for(int i = 1; i < numAttrs; i++) {
+    for(int i = 0; i < numAttrs; i++) {
       if(i == indexOfPosteriors) {
+        System.out.println("Attribute Name: Match");
+        values = postProb.getLabelValues();
+        for(int h = 0; h < numOfPostLabels; h++) {
+          System.out.println(h + ": " + values[h] + "\t");
+        }
         continue;
       }
       Labels = attrTable.get(i).getLabels();
       System.out.println("Attribute Name: " + attrTable.get(i).getName());
-
-      IG = 0; IC = 0;
       for(int j = 0; j < Labels.size(); j++) {
         values = Labels.get(j).getLabelValues();
-        sum = 0;
-        part_one = 0; part_two = 0; part_three = 0;
+        System.out.println("Label: " + Labels.get(j).getName());
         for(int h = 0; h < numOfPostLabels; h++) {
-          sum += values[h];
+          System.out.println(h + ": " + values[h] + "\t");
         }
-        System.out.println("Sum: " + sum);
-        System.out.println("Total Sum: " + total_sum);
-        part_one = sum/total_sum;
-        System.out.println("Part_One = " + sum + " / " + total_sum );
-        System.out.print("Part_Three = ");
-        for(int h = 0; h < numOfPostLabels; h++) {
-          part_two = values[h]/sum;
-          if(part_two == 0) {
-            continue;
-          }
-          part_three += (-1) * (part_two) * (Math.log(part_two)/Math.log(2));
-          System.out.print("(-1) * " + part_two + " * " + "(Math.log("+part_two+")/(Math.log(2))) +");
-        }
-        System.out.println();
-        IC += (part_one)*(part_three);
-        System.out.println("Part " + j + " IC: " + (part_one*part_three));
         System.out.println();
       }
-      IG = entropy - IC;
-      System.out.println("IG: " + entropy + " - " + IC);
-      System.out.println("IG: " + IG);
-      System.out.println("________________________________");
     }
 	}
 }
@@ -173,26 +123,26 @@ public class main {
 //   public IG() {
 //
 //   }
-//   double computeIC(int[] valueCounts) {
+//   float computeIC(int[] valueCounts) {
 //     int attrlValCount = 0;
 //     for(int i = 0; i < valueCounts.length; i++) {
 //       attrValCount++;
 //     }
-//     double ICResult = 0.0f;
-//     double k;
+//     float ICResult = 0.0f;
+//     float k;
 //     for(int i = 0; i < valueCounts.length; i++) {
 //       k = valueCounts[i]/attrValCount;
 //       ICResult = (-1) * (k)*Math.log(k);
 //     }
 //     return ICResult;
 //   }
-//   double computeIG(int[] valueCounts, int totalCount) {
+//   float computeIG(int[] valueCounts, int totalCount) {
 //
-//     double IGResult = this.entropy - this.computeRemainder(valueCounts, totalCount);
+//     float IGResult = this.entropy - this.computeRemainder(valueCounts, totalCount);
 //     return IGResult;
 //   }
-//   double computeRemainder(int[] valueCounts, int totalCount) {
-//     double remainderResult = 0.0f;
+//   float computeRemainder(int[] valueCounts, int totalCount) {
+//     float remainderResult = 0.0f;
 //     for(int i = 0; i < valueCounts; i++) {
 //       remainderResult +=
 //     }
