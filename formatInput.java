@@ -45,7 +45,7 @@ public class formatInput {
         //age
         bw.write((Float.parseFloat(labels[2])>=25f?1:0) + "\t");
         //race
-        bw.write(labels[3] + "\t");
+        bw.write((Float.parseFloat(labels[3])>=5f?1:0));
         //sinc_o
         bw.write((Float.parseFloat(labels[4])>=5f?1:0) + "\t");
         //attr_o
@@ -58,8 +58,8 @@ public class formatInput {
         bw.write((Float.parseFloat(labels[8])>=5f?1:0) + "\t");
         //shar_o
         bw.write((Float.parseFloat(labels[9])>=5f?1:0) + "\t");
-        //met_o
-        bw.write(labels[10]);
+				//like_o
+				bw.write((Float.parseFloat(labels[9])>=5f?1:0) + "\t");
 
         bw.newLine();
         bw.flush();

@@ -147,7 +147,7 @@ public class main {
         System.out.println("Sum: " + sum);
         System.out.println("Total Sum: " + total_sum);
         part_one = sum/total_sum;
-        System.out.println("Part_One = " + sum + " / " + total_sum );
+        System.out.println("Part_One = " + part_one);
         System.out.print("Part_Three = ");
         for(int h = 0; h < numOfPostLabels; h++) {
           part_two = values[h]/sum;
