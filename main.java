@@ -147,8 +147,8 @@ public class main {
         System.out.println("Sum: " + sum);
         System.out.println("Total Sum: " + total_sum);
         part_one = sum/total_sum;
-        System.out.println("Part_One = " + part_one);
-        System.out.print("Part_Three = ");
+        System.out.println("sum/totalSum = " + part_one);
+        System.out.print("Calculating IC = ");
         for(int h = 0; h < numOfPostLabels; h++) {
           part_two = values[h]/sum;
           if(part_two == 0) {
@@ -163,7 +163,7 @@ public class main {
         System.out.println();
       }
       IG = entropy - IC;
-      System.out.println("IG: " + entropy + " - " + IC);
+      System.out.println("Calculating IG: " + entropy + " - " + IC);
       System.out.println("IG: " + IG);
       System.out.println("________________________________");
     }
